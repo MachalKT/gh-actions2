@@ -41,6 +41,12 @@ jobs:
         with:
           name: test-report
           path: test.json
+      - name: Test echo
+        id: echo-test
+        run: echo Hello
+      - name: Upload echo test
+        if: success() || steps.echo-test.outcome == 'failure'
+        run: echo Hello2
   build:
     needs: test
     runs-on: ubuntu-latest
