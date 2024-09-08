@@ -36,11 +36,12 @@ jobs:
         id: run-tests
         run: npm run test
       - name: Upload test report
-        if: ${{ (failure() || success()) && steps.run-tests.conclusion == 'success'}}
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-report
-          path: test.json
+        if: success() || steps.run-tests.conclusion == 'failure'
+        run: echo ""
+        # uses: actions/upload-artifact@v3
+        # with:
+        #   name: test-report
+        #   path: test.json
   build:
     needs: test
     runs-on: ubuntu-latest
